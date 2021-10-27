@@ -18,6 +18,7 @@
   <div class="text-center mb-2">
     <a href="index.php" class="btn btn-warning col-lg-2">Home</a>
     <a href="viewCart.php" class="btn btn-warning col-lg-2">Cart</a>
+    <a href="upload.php" class="btn btn-warning col-lg-2">upload</a>
   </div>
   <div class="row">
     <?php
@@ -54,15 +55,15 @@
     ?>
   </div>
   <script type="text/javascript">
-    $(document).ready(function(){
-      var form=$('#myform');
-      $('addToCart').click(function(){
+    $(document).ready(function() {
+      var form = $('#myform');
+      $('addToCart').click(function() {
         $.ajax({
           url: form.attr("action"),
           type: 'post',
           data: $("#myform input").serialize(),
-          success:function(data){
-            console.log(data); 
+          success: function(data) {
+            console.log(data);
           }
         })
       });

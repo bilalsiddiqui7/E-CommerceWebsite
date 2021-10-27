@@ -23,60 +23,97 @@ session_start();
         <a href="viewCart.php" class="btn btn-warning col-lg-2">Cart</a>
     </div>
     <h2 class="text-center mb-2">Your cart products :</h2>
-    <table class="table">
-        <thead>
+
+    <?php
+    $username = "root";
+    $password = "";
+    $server = 'localhost';
+    $db = 'crudpractice';
+
+    $conn = mysqli_connect($server, $username, $password, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $sql = "SELECT `price`, `quantity`, `name` FROM `ecommerse`";
+    $result = $conn->query($sql);
+    $count = 0;
+    $totalprice = 0;
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<table border='1'>
+
             <tr>
-                <!-- <th>S.No</th> -->
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $bill = 0;
-            $sno = 1;
-            $count = 0;
-            foreach ($_SESSION as $products) {
-                $p = 0;
-                $q = 0;
-                echo "<tr>";
-                // echo "<td>" .($sno++). "</td";
-                foreach ($products as $key => $value) {
-                    if ($key == 2) {
-                        echo "<td>" . $value . "</td>";
-                        $q = $value;
-                    } else if ($key == 1) {
-                        echo "<td>" . $value . "</td>";
-                        $p = $value;
-                    } else if ($key == 0) {
-                        echo "<td>" . $value . "</td>";
-                    }
+            
+            <th>name</th>
+            
+            <th>quantity</th>
+            
+            <th>price</th>
+
+            <th>Total price</th>
+
+            <th>Delete</th>
+            
+            </tr>";
+            echo "<tr>";
+
+            echo "<td>" . $row['name'] . "</td>";
+
+            echo "<td>" . $q = $row["quantity"] . "</td>";
+
+            echo "<td>" . $price = $row["price"] . "</td>";
+
+            echo "<td>" . $row["price"] * $q . "</td>";
+            echo "<td><input type='submit' name='event' value='delete' class='btn btn-danger'></td>";
+            echo "</tr>";
+            echo "</table>";
+            $totalprice = $q * $price;
+            $count = $count + $totalprice;
+        }
+    } else {
+        echo "0 results";
+    }
+    ?>
+    <h2 class="text-right mr-5 mt-5">Total amount to be paid is :<?php echo $count ?></h2>
+    <form action="checkout.php">
+        <div class="text-right mr-5 mt-5"><button type="button " class="btn btn-success">Checkout</button></div>
+    </form>
+    <?php
+    $conn->close();
+    ?>
+    <!-- Displaying data from database using sessions  -->
+    <tbody>
+        <?php
+        $bill = 0;
+        $sno = 1;
+        $count = 0;
+        foreach ($_SESSION as $products) {
+            $p = 0;
+            $q = 0;
+            echo "<tr>";
+            // echo "<td>" .($sno++). "</td";
+            foreach ($products as $key => $value) {
+                if ($key == 2) {
+                    echo "<td>" . $value . "</td>";
+                    $q = $value;
+                } else if ($key == 1) {
+                    echo "<td>" . $value . "</td>";
+                    $p = $value;
+                } else if ($key == 0) {
+                    echo "<td>" . $value . "</td>";
                 }
-                $bill = ($q * $p);
-                $count = $count + $bill;
-                echo "<td>" . ($bill) . "</td>";
-                echo "<td><input type='submit' name='event' value='update' class='btn btn-warning'></td>";
-                echo "<td><input type='submit' name='event' value='delete' class='btn btn-danger'></td>";
-                echo "</tr>";
             }
-            ?>
-        </tbody>
+            $bill = ($q * $p);
+            $count = $count + $bill;
+            echo "<td>" . ($bill) . "</td>";
+            echo "<td><input type='submit' name='event' value='update' class='btn btn-warning'></td>";
+            echo "<td><input type='submit' name='event' value='delete' class='btn btn-danger'></td>";
+            echo "</tr>";
+        }
+        ?>
+    </tbody> -->
     </table>
-    
+
 </body>
 
 </html>
-<h2 class="text-right mr-5 mt-5">Total amount to be paid is : <?php echo $count ?></h2>
-<form action="checkout.php">
-    <div class="text-right mr-5 mt-5"><button type="button " class="btn btn-success">Checkout</button></div>
-</form>
-<?php
-// foreach ($_SESSION as $val) {
-//     print_r($val);
-// } 
-?>
-
