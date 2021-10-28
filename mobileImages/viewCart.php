@@ -40,6 +40,8 @@ session_start();
     $totalprice = 0;
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $q = $row["quantity"];
+            $price = $row["price"];
             echo "<table border='1'>
 
             <tr>
@@ -59,9 +61,9 @@ session_start();
 
             echo "<td>" . $row['name'] . "</td>";
 
-            echo "<td>" . $q = $row["quantity"] . "</td>";
+            echo "<td>" . $row["quantity"] . "</td>";
 
-            echo "<td>" . $price = $row["price"] . "</td>";
+            echo "<td>" . $row["price"] . "</td>";
 
             echo "<td>" . $row["price"] * $q . "</td>";
             echo "<td><input type='submit' name='event' value='delete' class='btn btn-danger'></td>";

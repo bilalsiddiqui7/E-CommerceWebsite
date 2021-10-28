@@ -25,7 +25,7 @@
         <input name="discountupload" type="text" placeholder="discount">
         <br>
         Select image to upload: <br>
-        <input name="imageupload" type="file" name="fileToUpload" id="fileToUpload">
+        <input name="imageupload" type="file" id="fileToUpload">
         <br>
         <input id="submit" type="submit" value="Upload" name="submit">
     </form>
